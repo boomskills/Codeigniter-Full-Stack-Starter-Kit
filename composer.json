@@ -7,9 +7,11 @@
     "keywords": [
         "codeiginiter",
         "php",
-        "full-stack",
+        "full stack",
         "blog",
-        "template"
+        "template",
+        "bootstrap",
+        "starter"
     ],
     "authors": [
         { "name": "Geraldo Kandonga fillipus", "email": "fillipusgeraldo@gmail.com" }

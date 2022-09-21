@@ -23,6 +23,11 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'cors' => \App\Filters\Cors::class,
+        'throttle' => \App\Filters\Throttle::class,
+        'login' => \Modules\Auth\Filters\LoginFilter::class,
+        'role' => \Modules\Auth\Filters\RoleFilter::class,
+        'permission' => \Modules\Auth\Filters\PermissionFilter::class,
     ];
 
     /**
@@ -33,14 +38,10 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'cors',
         ],
         'after' => [
-            'toolbar',
-            // 'honeypot',
-            // 'secureheaders',
+            'toolbar'
         ],
     ];
 
@@ -57,7 +58,9 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $methods = [];
+    public $methods = [
+        'post' => ['throttle', 'csrf'],
+    ];
 
     /**
      * List of filter aliases that should run on any
