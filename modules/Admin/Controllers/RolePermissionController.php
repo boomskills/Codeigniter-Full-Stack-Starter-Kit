@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\RoleModel as Role;
+use Modules\Auth\Authorization\RoleModel as Role;
 
 class RolePermissionController extends BaseAdminController
 {

@@ -29,11 +29,10 @@ class EmailActivator extends BaseActivator implements ActivatorInterface
 
         $url = site_url('auth/activate-account?token=' . $auth->activate_hash);
 
-        $template->message = (new Common())->replace_keywords(
+        $template->message = replace_keywords(
             [
                 '{name}' => $user->name,
                 '{activation_link}' => $url,
-                '{site_name}' => service('settings')->info->site_title,
             ],
             $template->message
         );

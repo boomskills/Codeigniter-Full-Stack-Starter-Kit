@@ -2,7 +2,6 @@
 
 use App\Libraries\Slug;
 use App\Libraries\Slugify;
-use App\Libraries\IdGenerator;
 use App\Libraries\UniqueID;
 
 if (!function_exists('splitName')) {
@@ -36,6 +35,26 @@ if (!function_exists("find")) {
         }
 
         return $model;
+    }
+}
+
+
+/**
+ * [replace_keywords description].
+ *
+ * @param  [type] $array   [description]
+ * @param  [type] $message [description]
+ *
+ * @return [type]          [description]
+ */
+if (!function_exists('replace_keywords')) {
+    function replace_keywords($array, $message)
+    {
+        foreach ($array as $k => $v) {
+            $message = str_replace($k, $v, $message);
+        }
+
+        return $message;
     }
 }
 

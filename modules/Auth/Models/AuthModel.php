@@ -7,7 +7,7 @@ use Modules\Auth\Entities\Auth;
 
 class AuthModel extends BaseModel
 {
-    protected $table = 'authentications';
+    protected $table = 'auths';
     protected $primaryKey = 'user_id';
     protected $useAutoIncrement = false;
 
@@ -33,8 +33,8 @@ class AuthModel extends BaseModel
     ];
 
     protected $validationRules = [
-        'user_id' => 'required|is_unique[authentications.user_id,user_id,{user_id}]|is_not_unique[users.id,id,{id}]',
-        'identity' => 'required|min_length[3]|max_length[100]|is_unique[authentications.identity,user_id,{user_id}]',
+        'user_id' => 'required|is_unique[auths.user_id,user_id,{user_id}]|is_not_unique[users.id,id,{id}]',
+        'identity' => 'required|min_length[3]|max_length[100]|is_unique[auths.identity,user_id,{user_id}]',
         'password_hash' => 'required',
     ];
 
@@ -46,7 +46,7 @@ class AuthModel extends BaseModel
      */
     public function logResetAttempt(string $identity, string $token = null, string $ipAddress = null, string $userAgent = null)
     {
-        $this->db->table('authentication_reset_attempts')->insert([
+        $this->db->table('auth_reset_attempts')->insert([
             'identity' => $identity,
             'ip_address' => $ipAddress,
             'user_agent' => $userAgent,
@@ -59,7 +59,7 @@ class AuthModel extends BaseModel
      */
     public function logActivationAttempt(string $token = null, string $ipAddress = null, string $userAgent = null)
     {
-        $this->db->table('authentication_activation_attempts')->insert([
+        $this->db->table('auth_activation_attempts')->insert([
             'ip_address' => $ipAddress,
             'user_agent' => $userAgent,
             'token' => $token,

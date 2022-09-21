@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 
 class LoginModel extends BaseModel
 {
-    protected $table = 'authentication_logins';
+    protected $table = 'auth_logins';
     protected $primaryKey = 'id';
 
     protected $returnType = 'object';
@@ -15,7 +15,7 @@ class LoginModel extends BaseModel
 
     protected $allowedFields = [
         'ip_address',
-        'identity',
+        'provider_id',
         'user_id',
         'date',
         'success',
@@ -25,7 +25,7 @@ class LoginModel extends BaseModel
 
     // protected $validationRules = [
     //     'ip_address' => 'required',
-    //     'identity' => 'required|is_unique[authentications.identity]',
+    //     'provider_id' => 'required|is_unique[auths.provider_id]',
     //     'user_id' => 'permit_empty|integer',
     //     'date' => 'required|valid_date',
     // ];
@@ -42,7 +42,7 @@ class LoginModel extends BaseModel
     {
         $expires = new \DateTime($expires);
 
-        return $this->db->table('authentication_tokens')->insert([
+        return $this->db->table('auth_tokens')->insert([
             'user_id' => $userID,
             'selector' => $selector,
             'hashedValidator' => $validator,
@@ -57,7 +57,7 @@ class LoginModel extends BaseModel
      */
     public function getRememberToken(string $selector)
     {
-        return $this->db->table('authentication_tokens')
+        return $this->db->table('auth_tokens')
             ->where('selector', $selector)
             ->get()
             ->getRow();
@@ -70,11 +70,11 @@ class LoginModel extends BaseModel
      */
     public function updateRememberValidator(string $selector, string $validator)
     {
-        return $this->db->table('authentication_tokens')
+        return $this->db->table('auth_tokens')
             ->where('selector', $selector)
             ->update([
                 'hashedValidator' => hash('sha256', $validator),
-                'expires' => (new \DateTime())->modify('+' . config('authentication')->rememberLength . ' seconds')->format('Y-m-d H:i:s'),
+                'expires' => (new \DateTime())->modify('+' . config('auth')->rememberLength . ' seconds')->format('Y-m-d H:i:s'),
             ]);
     }
 
@@ -86,11 +86,11 @@ class LoginModel extends BaseModel
      */
     public function purgeRememberTokens(int $id)
     {
-        return $this->builder('authentication_tokens')->where(['user_id' => $id])->delete();
+        return $this->builder('auth_tokens')->where(['user_id' => $id])->delete();
     }
 
     /**
-     * Purges the 'authentication_tokens' table of any records that are past
+     * Purges the 'auth_tokens' table of any records that are past
      * their expiration date already.
      */
     public function purgeOldRememberTokens()
@@ -101,6 +101,6 @@ class LoginModel extends BaseModel
             return;
         }
 
-        $this->db->table('authentication_tokens')->where('expires <=', date('Y-m-d H:i:s'))->delete();
+        $this->db->table('auth_tokens')->where('expires <=', date('Y-m-d H:i:s'))->delete();
     }
 }
