@@ -1,0 +1,45 @@
+{
+    "name": "codeigniter-fullstack-starter-kit/codeigniter-fullstack-starter-kit",
+    "type": "project",
+    "description": "A Codeigniter4 Starter Kit template.",
+    "homepage": "https://github.com/Holoog/codeigniter-fullstack-starter-kit",
+    "license": "MIT",
+    "keywords": [
+        "codeiginiter",
+        "php",
+        "full-stack",
+        "blog",
+        "template"
+    ],
+    "authors": [
+        { "name": "Geraldo Kandonga fillipus", "email": "fillipusgeraldo@gmail.com" }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "codeigniter4/framework": "^4.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.9",
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^9.1"
+    },
+    "suggest": {
+        "ext-fileinfo": "Improves mime type detection for files"
+    },
+    "autoload": {
+        "exclude-from-classmap": [
+            "**/Database/Migrations/**"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Support\\": "tests/_support"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "support": {
+        "issues": "https://github.com/Holoog/codeiginiter-fullstack-starter-kit/issues"
+    }
+}
