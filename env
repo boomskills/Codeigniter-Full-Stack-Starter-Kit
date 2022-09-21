@@ -124,3 +124,6 @@ database.default.port = 3306
 #--------------------------------------------------------------------
 
 # curlrequest.shareOptions = true
+
+
+SENDGRID_API_KEY=#

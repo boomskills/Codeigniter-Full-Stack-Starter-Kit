@@ -5,7 +5,7 @@
     "homepage": "https://github.com/Holoog/codeigniter-fullstack-starter-kit",
     "license": "MIT",
     "keywords": [
-        "codeiginiter",
+        "codeigniter",
         "php",
         "full stack",
         "blog",
@@ -18,7 +18,9 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "codeigniter4/framework": "^4.0"
+        "codeigniter4/framework": "^4.0",
+        "sendgrid/sendgrid": "^8.0",
+        "hashids/hashids": "^4.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
