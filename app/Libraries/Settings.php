@@ -22,7 +22,6 @@ class Settings
             site_desc,
             meta_keywords,
             meta_description,
-            site_noreply_email,
             facebook_url,
             twitter_url,
             youtube_url,
@@ -31,7 +30,19 @@ class Settings
             admin_layout,
             file_types,
             file_size,
-            default_user_role'
+            enable_google_analytic,
+            default_role,
+            google_analytic_key,
+            google_recaptcha_key,
+            google_recaptcha_secret,
+            google_recaptcha,
+            facebook_app_id,
+            facebook_app_secret,
+            facebook_call_back,
+            google_client_id,
+            google_client_secret,
+            google_call_back,
+            disable_social_login'
         )
             ->where('settings.id', 1)
             ->get();

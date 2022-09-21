@@ -22,6 +22,11 @@ class AccountModel extends BaseModel
     protected $beforeInsert = [];
     protected $afterDelete = [];
 
+    public function getEntityType()
+    {
+        return self::class;
+    }
+
     /**
      * Generates a account number based on total available row.
      *

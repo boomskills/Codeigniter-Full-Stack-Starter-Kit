@@ -16,6 +16,11 @@ class PostModel extends BaseModel
     protected $beforeInsert = [];
     protected $afterDelete = [];
 
+    public function getEntityType()
+    {
+        return self::class;
+    }
+
     /**
      * Generates a post id
      *

@@ -5,6 +5,7 @@ namespace App\Models;
 class SettingsModel extends BaseModel
 {
     protected $table   = 'settings';
+    protected $returnType = 'object';
     protected $allowedFields    = [
         'site_title',
         'site_desc',
@@ -34,6 +35,10 @@ class SettingsModel extends BaseModel
         'google_client_secret',
         'google_call_back',
         'disable_social_login'
-
     ];
+
+    public function getEntityType()
+    {
+        return self::class;
+    }
 }

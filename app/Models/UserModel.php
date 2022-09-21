@@ -19,4 +19,9 @@ class UserModel extends BaseModel
     protected $afterInsert = [];
     protected $beforeInsert = [];
     protected $afterDelete = [];
+
+    public function getEntityType()
+    {
+        return self::class;
+    }
 }
