@@ -16,7 +16,7 @@ abstract class ClientBaseController extends BaseController
     public function __construct()
     {
 
-        helper(['auth']);
+        helper(['auth', 'common']);
         $this->settings = new Settings();
         $this->postModel = new Post();
 

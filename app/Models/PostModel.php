@@ -9,7 +9,19 @@ class PostModel extends BaseModel
     protected $table            = 'posts';
     protected $returnType       = Post::class;
     protected $useSoftDeletes   = true;
-    protected $allowedFields    = ['post_id', 'user_id', 'title', 'slug', 'short_description', 'thumbnail', 'description', 'status', 'views' . 'published_at', 'meta'];
+    protected $allowedFields    = [
+        'post_id',
+        'user_id',
+        'title',
+        'slug',
+        'short_description',
+        'thumbnail',
+        'description',
+        'status',
+        'views',
+        'published_at',
+        'meta'
+    ];
 
     // Callbacks
     protected $afterInsert = ['generatePostId',];

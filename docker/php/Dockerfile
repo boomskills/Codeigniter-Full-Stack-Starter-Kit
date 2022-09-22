@@ -29,8 +29,11 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+
 # Set working directory
 WORKDIR /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 USER $user
+
 
 CMD ["php-fpm"]

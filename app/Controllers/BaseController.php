@@ -56,6 +56,7 @@ abstract class BaseController extends Controller
         'text',
         'file',
         'auth',
+        'common'
     ];
 
     /**

@@ -28,11 +28,10 @@ class PageController extends ClientBaseController
         }
 
         $this->data['content'] = $page;
+        $this->data['head_title'] = $page->title;
         $this->data['page'] = 'pages/show';
         $this->render_layout($this->data);
     }
-
-
 
     /**
      * Displays a contact page.

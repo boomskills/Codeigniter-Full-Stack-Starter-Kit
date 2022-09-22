@@ -42,8 +42,12 @@ $routes->get('/', 'HomeController::index');
 $routes->get('cms', 'CmsController::index');
 
 // PAGES
-$routes->get('pages/(:any)-(:num)\.html', 'PageController::showPage/$2');
+$routes->get('pages/(:any)', 'PageController::showPage/$1');
 $routes->get('contact-us', 'PageController::contact_page');
+
+$routes->get('posts', 'PostController::index');
+$routes->get('posts/(:any)/(:any)-(:num)\.html', 'PostController::show/$3');
+
 
 
 /*

@@ -93,7 +93,9 @@ define('EVENT_PRIORITY_NORMAL', 100);
  */
 define('EVENT_PRIORITY_HIGH', 10);
 
-
 //path
 define('IMAGE_PATH', 'uploads/images/');
 define("NO_IMAGE_PATH", "");
+
+
+define('POST_DETAIL_PATH', 'posts/%d/%s-%d.html');
