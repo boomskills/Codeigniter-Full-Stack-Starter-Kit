@@ -52,7 +52,7 @@ or
 > docker ps
 ```
 
-Find the `container ID` of the `app` something like `codeigniter-fullstack-starter-kit`
+Find the `container ID` of the `app` something like `boomskills/ci-fullstack-starter-kit`
 
 ## Next run
 
@@ -76,7 +76,7 @@ Run the below commands while logged in docker.
 
 ## Home
 
-Visit `http://localhost:2525` in the browser to view your application.
+Visit `http://localhost:2526` in the browser to view your application.
 
 # Database
 
