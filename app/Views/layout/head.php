@@ -21,5 +21,4 @@
   <meta property="og:image" content="">
   <base href="<?php echo base_url(); ?>" />
 
-
 </head>
