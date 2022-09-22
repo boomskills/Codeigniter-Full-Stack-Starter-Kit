@@ -62,12 +62,12 @@ class ActivationAuthController extends BaseAuthController
             return service('response')->setStatusCode(429)->setBody(lang('Auth.tooManyRequests', [$throttler->getTokentime()]));
         }
 
-        $identity = urldecode($this->request->getGet('identity'));
+        $username = urldecode($this->request->getGet('username'));
 
         // get user from email
         $authModel = new AuthModel();
 
-        $auth = $authModel->where('identity', $identity)->where('active', 0)->first();
+        $auth = $authModel->where('username', $username)->where('active', 0)->first();
 
         if (is_null($auth)) {
             return redirect()->route('login')->with('error', lang('Auth.activationNoAccount'));

@@ -1,45 +1,38 @@
 <?php echo $this->extend($config->viewLayout); ?>
 <?php echo $this->section('content'); ?>
 
-<div id="is-content" class="is-content" data-is-full-width="true">
-  <div class="content-area ">
-    <div class="section ">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="portlet-body">
-              <div class="login-form">
-                <form id="forgotpw-form" action="<?php echo base_url('auth/forgot'); ?>" role="form" autocomplete="off"
-                  class="form-signin" method="post">
-                  <?php echo csrf_field(); ?>
-                  <h2 class="form-signin-heading"><?php echo lang('Auth.forgotPassword'); ?></h2>
-                  <div class="login-wrap">
-                    <?php echo view('Modules\Auth\Views\_message_block'); ?>
-                    <div class="form-group">
-                      <label for="reset_password" class="col-md-4 control-label">
-                        <?php echo lang('Auth.identity'); ?>
-                      </label>
-                      <div class="col-md-8">
-                        <input type="text"
-                          class="form-control <?php if (session('errors.identity')) { ?>is-invalid<?php } ?>"
-                          name="identity" placeholder="<?php echo lang('Auth.identity'); ?>" autofocus
-                          aria-describedby="emailHelp">
-                        <div class="invalid-feedback">
-                          <?php echo session('errors.identity'); ?>
-                        </div>
-                      </div>
-                      <input type="hidden" class="hide" name="token" id="token" value="">
-                      <button class="btn btn-lg btn-login btn-block" type="submit">
-                        <?php echo lang('Auth.sendInstructions'); ?>
-                      </button>
-                    </div>
-                </form>
-              </div>
-            </div>
-          </div>
+<div class="login-box">
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="<?php echo base_url('/'); ?>" class="h1"><b>CI</b> Full-Stack Starter Kit</a>
         </div>
-      </div>
+        <div class="card-body">
+            <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
+            <?php echo view('Modules\Auth\Views\_message_block'); ?>
+            <form action="<?php echo base_url('auth/forgot'); ?>" method="post" autocomplete="off">
+                <?php echo csrf_field(); ?>
+                <div class="input-group mb-3">
+                    <input type="email" name="email" class="form-control <?php if (session('errors.email')) { ?>is-invalid<?php } ?>" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <p class="mt-3 mb-1">
+                <a href="login.html">Login</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
     </div>
-  </div>
 </div>
+<!-- /.login-box -->
+
 <?php $this->endSection(); ?>

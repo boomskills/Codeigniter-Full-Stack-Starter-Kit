@@ -2,7 +2,10 @@
 
 namespace App\Entities;
 
-use App\Models\AccountModel;
+use App\Models\PostModel;
+use App\Models\UserModel;
+use App\Models\DocumentModel;
+use Modules\Auth\Traits\HasAuth;
 
 /**
  * User entity
@@ -10,13 +13,18 @@ use App\Models\AccountModel;
 class User extends BaseEntity
 {
 
+    use HasAuth;
+
     /**
-     * A user must have an account
-     *
-     * @return App\Entities\Account
+     * @return mixed
      */
-    public function account()
+    public function posts()
     {
-        return (new AccountModel())->find($this->account_id);
+        return (new PostModel())->where('user_id', $this->id)->orderBy('id', 'DESC')->findAll();
+    }
+
+    public function documents()
+    {
+        return (new DocumentModel())->where('documentable_id', $this->id)->where('documentable_type', (new UserModel())->getEntityType())->find();
     }
 }

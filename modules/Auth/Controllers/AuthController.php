@@ -4,7 +4,6 @@ namespace Modules\Auth\Controllers;
 
 use App\Libraries\User;
 use App\Models\UserModel;
-use App\Utils\UnlinkFile;
 use App\Libraries\Password;
 use CodeIgniter\API\ResponseTrait;
 use Modules\Auth\Models\AuthModel;
@@ -34,24 +33,10 @@ class AuthController extends BaseAuthController
             return redirect()->back()->withInput()->with('error', lang('Error.error_176'));
         }
 
-        // phone validation
-        if ($this->request->getVar('phone')) {
-            if (!$this->validate([
-                'phone' => 'min_length[10]|max_length[20]',
-            ], [
-                'phone' => [
-                    'min_length' => 'Phone is invalid! Provide a valid Namibian phone number.',
-                    'max_length' => 'Phone is invalid! Provide a valid Namibian phone number.',
-                ],
-            ])) {
-                return redirect()->back()->withInput()->with('errors', $this->validator->errors);
-            }
-        }
-
         // update account
         if (!$this->userModel->update($this->user->info->id, [
             'name' => $this->request->getVar('name') ?: $this->user->info->name,
-            'phone' => $this->request->getVar('phone') ?: $this->user->info->phone,
+            'email' => $this->request->getVar('email') ?: $this->user->info->email,
         ])) {
             return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
         }
@@ -166,42 +151,9 @@ class AuthController extends BaseAuthController
     }
 
     /**
-     * Change Avatar profile picture.
-     */
-    public function attemptChangeAvatar()
-    {
-        if (!$this->validate([
-            'avatar' => 'required|is_image',
-        ])) {
-            return redirect()->back()->withInput()->with('errors', $this->validate->errors);
-        }
-
-        // delete old picture if available
-        if ($this->user->info->avatar) {
-            (new UnlinkFile($this->user->info->avatar))->handle();
-        }
-
-        $avatar = $this->request->getFile('avatar');
-        $file_path = '';
-
-        if ($avatar->isValid() && !$avatar->hasMoved()) {
-            $path = 'uploads/' . $avatar->store($this->user->info->account_number);
-            $file_path = $path;
-        }
-
-        if ($this->userModel->update($this->user->info->id, [
-            'avatar' => $file_path,
-        ])) {
-            return redirect()->back()->withInput()->with('success', lang('Success.success_64'));
-        }
-
-        return redirect()->back()->withInput()->with('error', lang('Success.invalid_file'));
-    }
-
-    /**
      * Danger zone
      */
-    public function attemptDelete()
+    public function deleteAccount()
     {
         return redirect()->back()->withInput()->with('errors', "Error cannot delete account");
     }

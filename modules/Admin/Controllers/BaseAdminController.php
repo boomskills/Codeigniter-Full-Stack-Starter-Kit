@@ -2,9 +2,10 @@
 
 namespace Modules\Admin\Controllers;
 
+use App\Libraries\User;
+use App\Libraries\Factory;
 use CodeIgniter\API\ResponseTrait;
 use App\Controllers\BaseController;
-use App\Libraries\Factory;
 use App\Utils\Traits\SavesDocuments;
 
 class BaseAdminController extends BaseController
@@ -30,7 +31,7 @@ class BaseAdminController extends BaseController
 
     public function __construct()
     {
-        helper(['url', 'html', 'url', 'form']);
+        helper(['url', 'html', 'url', 'form', 'common']);
         $this->session = service('session');
         $this->config = config('Auth');
         $this->auth = service('authentication');
@@ -40,6 +41,12 @@ class BaseAdminController extends BaseController
         $this->data['admin'] = $this->admin;
         $this->data['settings'] = service('settings');
         $this->factory = new Factory();
+
+        // is user logged in
+        if (logged_in()) {
+            $this->data['user'] = new User(auth_id());
+            $this->user = $this->data['user'];
+        }
     }
 
     protected function _render(string $view, array $data = [])

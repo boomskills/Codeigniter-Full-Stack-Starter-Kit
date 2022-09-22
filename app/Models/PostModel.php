@@ -9,7 +9,7 @@ class PostModel extends BaseModel
     protected $table            = 'posts';
     protected $returnType       = Post::class;
     protected $useSoftDeletes   = true;
-    protected $allowedFields    = ['post_id', 'title', 'slug', 'short_description', 'thumbnail', 'description', 'status'];
+    protected $allowedFields    = ['post_id', 'user_id', 'title', 'slug', 'short_description', 'thumbnail', 'description', 'status', 'views' . 'published_at', 'meta'];
 
     // Callbacks
     protected $afterInsert = ['generatePostId',];
@@ -30,7 +30,7 @@ class PostModel extends BaseModel
     {
         (new PostModel())->builder()
             ->where('id', $data['id'])
-            ->set(['post_id' => makeUniqueID('posts', 'post_id', date("Y"), 12)])
+            ->set(['post_id' => makeUniqueID('posts', 'post_id', date("Y"), 6)])
             ->update();
 
         return $data;

@@ -3,7 +3,6 @@
 namespace Modules\Auth\Authentication\Resetters;
 
 use App\Entities\User;
-use App\Libraries\Common;
 use Config\Email;
 use Modules\Auth\Entities\Auth;
 
@@ -25,23 +24,17 @@ class EmailResetter extends BaseResetter implements ResetterInterface
 
         helper('html');
 
-        // prevent admin user from resetting password
-        if ('webmaster@citystriders.com' == $user->email || 1 == $user->id) {
-            return false;
-        }
-
         // prepare message
         $template = db_connect()->table('email_templates')->getWhere(['hook' => 'forgot_password'])->getRow();
 
-        $resetUrl = site_url('auth/reset-password?token=' . $auth->reset_hash . '&identity=' . $auth->identity);
+        $resetUrl = site_url('auth/reset-password?token=' . $auth->reset_hash . '&username=' . $auth->username);
 
-        $template->message = (new Common())->replace_keywords(
+        $template->message = replace_keywords(
             [
                 '{name}' => $user->name,
                 '{reset_link}' => $resetUrl,
                 '{hash' => $auth->reset_hash,
                 '{site_url}' => site_url(),
-                '{site_name}' => service('settings')->info->site_title,
             ],
             $template->message
         );

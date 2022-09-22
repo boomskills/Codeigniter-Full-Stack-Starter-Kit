@@ -25,9 +25,9 @@ app_baseURL = 'http://localhost:2525'
 # DATABASE
 #--------------------------------------------------------------------
 
-database.default.hostname = codeigniter-fullstack-starter-kit-db
-database.default.database = db-codeigniter-fullstack-starter-kit
-database.default.username = db-codeigniter-fullstack-starter-kit-user
+database.default.hostname = ci-fullstack-starter-kit-db
+database.default.database = db-ci-fullstack-starter-kit
+database.default.username = db-ci-fullstack-starter-kit-user
 database.default.password = secret
 database.default.DBDriver = MySQLi
 database.default.DBPrefix =
@@ -127,3 +127,6 @@ database.default.port = 3306
 
 
 SENDGRID_API_KEY=#
+GOOGLE_CLIENT_ID=#
+GOOGLE_CLIENT_SECRET=#
+GOOGLE_REDIRECT_URI=#

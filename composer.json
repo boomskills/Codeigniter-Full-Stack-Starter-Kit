@@ -2,7 +2,7 @@
     "name": "codeigniter-fullstack-starter-kit/codeigniter-fullstack-starter-kit",
     "type": "project",
     "description": "A Codeigniter4 Starter Kit template.",
-    "homepage": "https://github.com/Holoog/codeigniter-fullstack-starter-kit",
+    "homepage": "https://github.com/boomskills/Codeigniter-Full-Stack-Starter-Kit",
     "license": "MIT",
     "keywords": [
         "codeigniter",
@@ -20,7 +20,8 @@
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
         "sendgrid/sendgrid": "^8.0",
-        "hashids/hashids": "^4.1"
+        "hashids/hashids": "^4.1",
+        "google/apiclient": "^2.12"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
@@ -44,6 +45,13 @@
         "test": "phpunit"
     },
     "support": {
-        "issues": "https://github.com/Holoog/codeiginiter-fullstack-starter-kit/issues"
+        "issues": "https://github.com/boomskills/Codeigniter-Full-Stack-Starter-Kit/issues"
+    },
+    "extra": {
+        "google/apiclient-services": [
+            "Drive",
+            "YouTube",
+            "Gmail"
+        ]
     }
 }

@@ -26,6 +26,12 @@ class Admin extends BaseConfig
         'dashboard' => 'Modules\Admin\Views\dashboard',
         'site_setting' => 'Modules\Admin\Views\setting\index',
 
+        'category' => [
+            'index' => 'Modules\Admin\Views\category\index',
+            'new' => 'Modules\Admin\Views\category\new',
+            'edit' => 'Modules\Admin\Views\category\edit',
+        ],
+
         'page' => [
             'index' => 'Modules\Admin\Views\page\index',
             'new' => 'Modules\Admin\Views\page\new',
@@ -45,6 +51,8 @@ class Admin extends BaseConfig
         ],
 
         'role' => [
+            'new_role' => 'Modules\Admin\Views\role\new_role',
+            'edit_role' => 'Modules\Admin\Views\role\edit_role',
             'index' => 'Modules\Admin\Views\role\index',
             'permissions' => 'Modules\Admin\Views\role\permissions',
         ],

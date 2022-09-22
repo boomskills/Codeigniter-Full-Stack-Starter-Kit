@@ -52,7 +52,7 @@ class RoleController extends BaseAdminController
         $this->data['role_permissions'] = $role_permissions;
         $this->data['panel_title'] = $role->name;
 
-        return $this->_render($this->admin->views['role']['edit'], $this->data);
+        return $this->_render($this->admin->views['role']['edit_role'], $this->data);
     }
 
     /**

@@ -2,9 +2,7 @@
 
 namespace Modules\Auth\Config;
 
-///////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////// AUTH ROUTES //////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
+
 $routes->group('auth', ['namespace' => 'Modules\Auth\Controllers'], function ($auth) {
     // Login/Logout
     $auth->get('login', 'LoginAuthController::login', ['as' => 'login']);
@@ -30,14 +28,9 @@ $routes->group('auth', ['namespace' => 'Modules\Auth\Controllers'], function ($a
 
     // account management
     $auth->group('',  ['namespace' => 'Modules\Auth\Controllers', 'filter' => 'login'], function ($account) {
-        // Phone Verification
-        $account->post('verify-phone', 'PhoneVerificationController::verify');
-        $account->get('resend-phone-verification', 'PhoneVerificationController::resend');
-
         $account->match(['put', 'patch'], 'update-account', 'AuthController::attemptUpdate');
-        $account->post('change-avatar', 'AuthController::attemptChangeAvatar');
         $account->post('change-email', 'AuthController::attemptChangeEmail');
         $account->post('change-password', 'AuthController::attemptChangePassword');
-        $account->delete('delete-account', 'AuthController::attemptDelete');
+        $account->delete('delete-account', 'AuthController::deleteAccount');
     });
 });

@@ -18,7 +18,7 @@ class AuthModel extends BaseModel
         'oauth_token',
         'oauth_id',
         'user_id',
-        'identity',
+        'username',
         'password_hash',
         'reset_hash',
         'reset_at',
@@ -34,7 +34,7 @@ class AuthModel extends BaseModel
 
     protected $validationRules = [
         'user_id' => 'required|is_unique[auths.user_id,user_id,{user_id}]|is_not_unique[users.id,id,{id}]',
-        'identity' => 'required|min_length[3]|max_length[100]|is_unique[auths.identity,user_id,{user_id}]',
+        'username' => 'required|min_length[3]|max_length[100]|is_unique[auths.username,user_id,{user_id}]',
         'password_hash' => 'required',
     ];
 

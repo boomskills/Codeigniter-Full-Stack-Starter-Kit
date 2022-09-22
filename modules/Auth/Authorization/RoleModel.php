@@ -132,13 +132,15 @@ class RoleModel extends Model
     public function getPermissionsForRole(int $roleId): array
     {
         $permissionModel = model(PermissionModel::class);
-        $fromRole = $permissionModel
+
+        $fromRole = $this->db->table('permissions')
             ->select('permissions.*')
             ->join('role_permissions', 'role_permissions.permission_id = permissions.id', 'inner')
             ->where('role_id', $roleId)
-            ->findAll();
+            ->get()->getResultArray();
 
         $found = [];
+
         foreach ($fromRole as $permission) {
             $found[$permission['id']] = $permission;
         }

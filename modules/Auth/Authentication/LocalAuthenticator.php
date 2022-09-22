@@ -21,36 +21,29 @@ class LocalAuthenticator extends AuthenticationBase implements AuthenticatorInte
 
         if (empty($this->auth)) {
             // Always record a login attempt, whether success or not.
-            $this->recordLoginAttempt($credentials['identity'], $ipAddress, false);
-
+            $this->recordLoginAttempt($credentials['username'], $ipAddress, false);
             $this->auth = null;
-
             return false;
         }
 
         if ($this->auth->isBanned()) {
             // Always record a login attempt, whether success or not.
-            $this->recordLoginAttempt($credentials['identity'], $ipAddress, false, $this->auth->user_id ?? null);
-
+            $this->recordLoginAttempt($credentials['username'], $ipAddress, false, $this->auth->user_id ?? null);
             $this->error = lang('Auth.authIsBanned');
-
             $this->auth = null;
-
             return false;
         }
 
         if (!$this->auth->isActivated()) {
             // Always record a login attempt, whether success or not.
-            $this->recordLoginAttempt($credentials['identity'], $ipAddress, false, $this->auth->user_id ?? null);
+            $this->recordLoginAttempt($credentials['username'], $ipAddress, false, $this->auth->user_id ?? null);
 
             $param = http_build_query([
-                'identity' => urlencode($credentials['identity']),
+                'username' => urlencode($credentials['username']),
             ]);
 
             $this->error = lang('Auth.notActivated') . ' ' . anchor(route_to('resend-activate-account') . '?' . $param, lang('Auth.activationResend'));
-
             $this->auth = null;
-
             return false;
         }
 

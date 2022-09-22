@@ -1,0 +1,259 @@
+img {
+    max-width: 100%;
+}
+
+
+/* Add fade animation to dropdown menus */
+
+.open>.dropdown-menu {
+    animation-duration: .2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: .2s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-duration: .2s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease;
+    -moz-animation-fill-mode: forwards;
+}
+
+@keyframes fadeAnimation {
+    from {
+        opacity: 0;
+        top: 120%;
+    }
+    to {
+        opacity: 1;
+        top: 100%;
+    }
+}
+
+@-webkit-keyframes fadeAnimation {
+    from {
+        opacity: 0;
+        top: 120%;
+    }
+    to {
+        opacity: 1;
+        top: 100%;
+    }
+}
+
+@-webkit-keyframes spin2 {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.fileinput-new.thumbnail {
+    width: 200px;
+    height: 150px;
+    border-radius: 5px;
+    border: 1px solid #e0e8ed;
+    background-color: #f0f4f6;
+    margin-top: 15px;
+    float: left;
+    margin-right: 30px;
+    overflow: hidden;
+    display: table;
+}
+
+.fileinput-new .image-box {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.select-img {
+    float: left;
+    margin-top: 15px;
+}
+
+.uploadfileinput,
+#uploadfileinput {
+    display: none !important;
+}
+
+.fileinput span {
+    color: #777;
+    font-size: 12px;
+}
+
+.btn-back {
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #f0f4f6;
+    min-width: 120px;
+    text-transform: uppercase;
+    color: #bbbbbb;
+    margin-left: 20px;
+}
+
+.btn-back:hover {
+    background-color: #8ba1b0;
+    color: #FFF;
+}
+
+.btn-delete {
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #8ba1b0;
+    min-width: 120px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-left: 20px;
+}
+
+.profile-content {
+    padding-bottom: 100px;
+}
+
+.dropdown-toggle {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    width: 100%;
+    text-align: left;
+    padding: 5px 10px;
+}
+
+.dropdown-toggle i {
+    float: right;
+    margin-top: 4px;
+}
+
+td .btn-group {
+    display: block;
+}
+
+
+/*
+  All form elements including input, select, textarea etc.
+-----------------------------------------------------------------
+*/
+
+.form-control:focus {
+    border-color: #b6c2c9 !important;
+    box-shadow: none;
+}
+
+.form-group.has-success label {
+    color: #00a65a;
+}
+
+.form-group.has-success .form-control {
+    border-color: #00a65a !important;
+    box-shadow: none;
+}
+
+.form-group.has-warning label {
+    color: #f39c12;
+}
+
+.form-group.has-warning .form-control {
+    border-color: #f39c12 !important;
+    box-shadow: none;
+}
+
+.form-group.has-error label {
+    color: #f56954;
+}
+
+.form-group.has-error .form-control {
+    border-color: #f56954 !important;
+    box-shadow: none;
+}
+
+
+/* Input group */
+
+.input-group .input-group-addon {
+    border-radius: 0;
+    background-color: #f4f4f4;
+    border-color: #e2e7eb;
+}
+
+span.text-muted {
+    text-transform: capitalize;
+}
+
+.error-notify {}
+
+.error-notify i {
+    color: #d86e7c;
+    font-size: 16px;
+}
+
+.error-notify span {
+    color: #d86e7c;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+input.error,
+input.error:focus {
+    border-color: #f70b3e;
+    outline: 0;
+}
+
+.form-setting {
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.form-setting .nav.nav-tabs {
+    position: relative;
+    border-bottom-color: transparent;
+}
+
+.form-setting .nav.nav-tabs:before {
+    position: absolute;
+    content: "";
+    width: 1px;
+    height: 100000px;
+    right: 0;
+    background-color: #ccc;
+}
+
+.form-setting .nav-tabs>li {
+    width: 100%;
+}
+
+.form-setting .nav-tabs>li a {
+    color: #222222;
+}
+
+.form-setting .nav-tabs>li.active>a,
+.form-setting .nav-tabs>li.active>a:focus,
+.form-setting .nav-tabs>li.active>a:hover {
+    background-color: #eee;
+    border: transparent;
+}
+
+
+/* .modal-body:not(.two-col) {
+    padding: 0px
+} */
+
+.glyphicon {
+    margin-right: 5px;
+}
+
+.glyphicon-new-window {
+    margin-left: 5px;
+}

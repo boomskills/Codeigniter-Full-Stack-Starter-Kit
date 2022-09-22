@@ -17,7 +17,7 @@ class ResetPasswordAuthController extends BaseAuthController
         }
 
         $token = $this->request->getGet('token');
-        $identity = $this->request->getGet('identity');
+        $username = $this->request->getGet('username');
 
         if (!$token) {
             return redirect()->route('forgot')->with('error', lang('Auth.errorResetTokenInvalid'));
@@ -25,7 +25,7 @@ class ResetPasswordAuthController extends BaseAuthController
 
         $this->data['head_title'] = 'Reset Password - ' . $this->settings->info->site_title;
         $this->data['token'] = $token;
-        $this->data['identity'] = $identity;
+        $this->data['username'] = $username;
 
         return $this->_render($this->config->views['reset'], $this->data);
     }
@@ -50,7 +50,7 @@ class ResetPasswordAuthController extends BaseAuthController
 
         // First things first - log the reset attempt.
         $authModel->logResetAttempt(
-            $this->request->getPost('identity'),
+            $this->request->getPost('username'),
             $this->request->getPost('token'),
             $this->request->getIPAddress(),
             (string) $this->request->getUserAgent()

@@ -15,17 +15,17 @@ class LoginAuthController extends BaseAuthController
     {
 
         // Google Client Configuration
-        $googleClient = new Client();
-        $googleClient->setApplicationName($this->settings->info->site_title);
-        $googleClient->setClientId(getenv("GOOGLE_CLIENT_ID"));
-        $googleClient->setClientSecret(getenv("GOOGLE_CLIENT_SECRET"));
-        $googleClient->setRedirectUri(getenv("GOOGLE_REDIRECT_URI"));
-        $googleClient->setScopes(
-            [
-                'https://www.googleapis.com/auth/userinfo.email',
-                'https://www.googleapis.com/auth/userinfo.profile',
-            ]
-        );
+        // $googleClient = new Client();
+        // $googleClient->setApplicationName($this->settings->info->site_title);
+        // $googleClient->setClientId(getenv("GOOGLE_CLIENT_ID"));
+        // $googleClient->setClientSecret(getenv("GOOGLE_CLIENT_SECRET"));
+        // $googleClient->setRedirectUri(getenv("GOOGLE_REDIRECT_URI"));
+        // $googleClient->setScopes(
+        //     [
+        //         'https://www.googleapis.com/auth/userinfo.email',
+        //         'https://www.googleapis.com/auth/userinfo.profile',
+        //     ]
+        // );
 
         // No need to show a login form if the user
         // is already logged in.
@@ -39,7 +39,7 @@ class LoginAuthController extends BaseAuthController
         // Set a return URL if none is specified
         $_SESSION['redirect_url'] = session('redirect_url') ?? previous_url() ?? site_url('/');
 
-        $this->data['googleLoginUrl'] = $googleClient->createAuthUrl();
+        // $this->data['googleLoginUrl'] = $googleClient->createAuthUrl();
         $this->data['head_title'] = 'Login - ' . $this->settings->info->site_title;
 
         return $this->_render($this->config->views['login'], $this->data);
@@ -52,7 +52,7 @@ class LoginAuthController extends BaseAuthController
     public function attemptLogin()
     {
         $rules = [
-            'identity' => 'required',
+            'username' => 'required',
             'password' => 'required',
         ];
 
@@ -60,12 +60,12 @@ class LoginAuthController extends BaseAuthController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $identity = $this->request->getPost('identity');
+        $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
         $remember = (bool) $this->request->getPost('remember');
 
         // Try to log them in...
-        if (!$this->auth->attempt(['identity' => $identity, 'password' => $password], $remember)) {
+        if (!$this->auth->attempt(['username' => $username, 'password' => $password], $remember)) {
             // redirect back with error
             return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }

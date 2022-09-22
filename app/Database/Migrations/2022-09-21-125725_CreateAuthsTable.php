@@ -22,7 +22,7 @@ class CreateAuthsTableMigration extends Migration
         // authentications
         $this->forge->addField([
             'user_id' => ['type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => true],
-            'provide_id' => ['type' => 'varchar', 'constraint' => 100],
+            'username' => ['type' => 'varchar', 'constraint' => 100],
             'password_hash' => ['type' => 'varchar', 'constraint' => 255],
             'reset_hash' => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'reset_at' => ['type' => 'datetime', 'null' => true],
@@ -51,7 +51,7 @@ class CreateAuthsTableMigration extends Migration
         ]);
 
         $this->forge->addKey('user_id', true);
-        $this->forge->addUniqueKey('provide_id');
+        $this->forge->addUniqueKey('username');
         $this->forge->addForeignKey('user_id', 'users', 'id', '', 'CASCADE', 'CASCADE');
         $this->forge->createTable('auths', true);
 
@@ -59,14 +59,14 @@ class CreateAuthsTableMigration extends Migration
         $this->forge->addField([
             'id' => ['type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => true, 'auto_increment' => true],
             'ip_address' => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
-            'provide_id' => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
+            'username' => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
             'user_id' => ['type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => true, 'null' => true], // Only for successful logins
             'date' => ['type' => 'datetime'],
             'success' => ['type' => 'tinyint', 'constraint' => 1],
             'created_at timestamp default now()',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addKey('provide_id');
+        $this->forge->addKey('username');
         $this->forge->addKey('user_id');
         $this->forge->createTable('auth_logins', true);
 
@@ -90,7 +90,7 @@ class CreateAuthsTableMigration extends Migration
         // Password Reset Table
         $this->forge->addField([
             'id' => ['type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => true, 'auto_increment' => true],
-            'identity' => ['type' => 'varchar', 'constraint' => 255],
+            'username' => ['type' => 'varchar', 'constraint' => 255],
             'ip_address' => ['type' => 'varchar', 'constraint' => 255],
             'user_agent' => ['type' => 'varchar', 'constraint' => 255],
             'token' => ['type' => 'varchar', 'constraint' => 255, 'null' => true],

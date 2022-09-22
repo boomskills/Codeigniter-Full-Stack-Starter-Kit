@@ -56,7 +56,7 @@ Find the `container ID` of the `app` something like `codeigniter-fullstack-start
 
 ## Next run
 
-Login into the container by executing
+Login into the container by executing.
 
 ```
 > docker exec -it CONTAINER-ID bash
@@ -76,7 +76,7 @@ Run the below commands while logged in docker.
 
 ## Home
 
-Visit `http://localhost:2525` in the browser to view your application
+Visit `http://localhost:2525` in the browser to view your application.
 
 # Database
 
@@ -87,4 +87,4 @@ Login credentials:\
 `username:` db-codeigniter-fullstack-starter-kit-user\
 `password:` secret
 
-Ready for development with docker.
+Ready for development with docker. Go ahead and build your ext big thing with codeigniter.

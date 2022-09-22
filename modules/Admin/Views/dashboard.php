@@ -1,54 +1,42 @@
 <?php echo $this->extend($admin->viewLayout); ?>
 <?php echo $this->section('content'); ?>
 
-<!--main content start-->
-<section id="main-content">
-  <section class="wrapper">
-    <!--state overview start-->
-    <div class="session clearfix">
-      <div class="row state-overview">
-        <div class="col-lg-3 col-sm-6">
-          <section class="panel">
-            <div class="symbol terques">
-              <i class="fa fa-user"></i>
-            </div>
-            <div class="value">
-              <h1 class="count">
-                <?php echo $users; ?>
-              </h1>
-              <p>Total Users</p>
-            </div>
-          </section>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Dashboard</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+
         </div>
-        <div class="col-lg-3 col-sm-6">
-          <section class="panel">
-            <div class="symbol red">
-              <i class="fa fa-user"></i>
-            </div>
-            <div class="value">
-              <h1 class=" count2">
-                <?php echo $recent_users; ?>
-              </h1>
-              <p>Recent Users</p>
-            </div>
-          </section>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <section class="panel">
-            <div class="symbol blue">
-              <i class="fa fa-bar-chart-o"></i>
-            </div>
-            <div class="value">
-              <h1 class=" count4">
-                <?php echo $weekly_users; ?>
-              </h1>
-              <p>This Week Users</p>
-            </div>
-          </section>
-        </div>
+        <!-- /.col-md-6 -->
       </div>
+      <!-- /.row -->
     </div>
-  </section>
-</section>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
 <!--main content end-->
 <?php $this->endSection(); ?>

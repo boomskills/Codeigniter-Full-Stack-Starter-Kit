@@ -4,9 +4,7 @@ namespace Modules\Auth\Controllers;
 
 use Google\Client;
 use App\Models\UserModel;
-use App\Libraries\Slugify;
 use Google\Service\Oauth2;
-use App\Models\ProfileModel;
 use Modules\Auth\Models\AuthModel;
 
 class SocialLoginAuthController extends BaseAuthController
@@ -18,7 +16,6 @@ class SocialLoginAuthController extends BaseAuthController
     {
         // models variables
         $userModel = new UserModel();
-        $profileModel = new ProfileModel();
         $authModel = new AuthModel();
 
         // Google Client Configuration
@@ -47,14 +44,9 @@ class SocialLoginAuthController extends BaseAuthController
             $googleData = $googleService->userinfo->get();
             $oauth_id = $googleData['id'];
 
-            $firstName = $this->common->nohtml($googleData['given_name']);
-            $lastName = $this->common->nohtml($googleData['family_name']);
-            $userEmail = $this->common->nohtml($googleData['email']);
-
-            $gender = !empty($googleData['gender']) ? $this->common->nohtml($googleData['gender']) : '';
-            $picture = !empty($googleData['picture']) ? $this->common->nohtml($googleData['picture']) : '';
-
-            $selector = (new Slugify())->slug_unique($firstName . ' ' . $lastName, 'users', 'selector');
+            $firstName = $googleData['given_name'];
+            $lastName = $googleData['family_name'];
+            $userEmail = $googleData['email'];
 
             if (!$oauth_id) {
                 return redirect()->back()->withInput()->with('error', lang('Error.error_32'));
@@ -90,7 +82,6 @@ class SocialLoginAuthController extends BaseAuthController
             $user->fill([
                 'name' => $firstName . ' ' . $lastName,
                 'email' => $userEmail,
-                'selector' => $selector
             ]);
 
             // Ensure default role gets assigned
@@ -102,28 +93,8 @@ class SocialLoginAuthController extends BaseAuthController
                 return redirect()->back()->withInput()->with('errors', $users->errors());
             }
 
-            // STEP 2) Create user profile
-            $profile = new \App\Entities\Profile();
 
-            $profile->fill([
-                'first_name' => $firstName,
-                'last_name' => $lastName,
-                'email_address' => $userEmail,
-                'gender' => $gender,
-                'user_id' => $newUserId,
-                'type' => 'primary',
-                'cover_image' => $picture
-            ]);
-
-            // Save user profile
-            if (!$profileModel->save($profile)) {
-                //in case the profile creation fails, abort the mission
-                $users->delete($newUserId);
-                // redirect back to register page
-                return redirect()->back()->withInput()->with('errors', $profileModel->errors());
-            }
-
-            // STEP 3) Authentication
+            // STEP 2) Authentication
 
             $auth = new \Modules\Auth\Entities\Auth();
 
@@ -133,7 +104,7 @@ class SocialLoginAuthController extends BaseAuthController
                 "oauth_id" => $oauth_id,
                 "oauth_token" => $token['access_token'],
                 'password' => generatePassword(16),
-                'identity' => $userEmail,
+                'username' => $userEmail,
                 'ip_address' => $this->request->getIPAddress(),
                 'active' => 1,
                 'activated_at' => date('Y-m-d H:i:s')

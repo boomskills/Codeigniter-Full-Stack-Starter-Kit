@@ -2,12 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Slug;
+use App\Libraries\Settings;
+use App\Libraries\Template;
 use CodeIgniter\Controller;
+use Psr\Log\LoggerInterface;
 use CodeIgniter\HTTP\CLIRequest;
+use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class BaseController
@@ -21,6 +25,13 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
+
+    use ResponseTrait;
+    public $data;
+    protected $slug;
+    protected $settings;
+    protected $template;
+
     /**
      * Instance of the main Request object.
      *
@@ -35,7 +46,17 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = [
+        'url',
+        'html',
+        'url',
+        'form',
+        'date',
+        'array',
+        'text',
+        'file',
+        'auth',
+    ];
 
     /**
      * Constructor.
@@ -45,8 +66,8 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
-
-        // E.g.: $this->session = \Config\Services::session();
+        $this->settings = new Settings();
+        $this->template = new Template();
+        $this->slug = new Slug(['replacement' => '-']);
     }
 }

@@ -19,11 +19,6 @@ class CreateUsersTable extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'account_id' => [
-                'type' => 'MEDIUMINT',
-                'constraint' => '8',
-                'unsigned' => true,
-            ],
 
             'name' => [
                 'type' => 'VARCHAR',
@@ -41,7 +36,6 @@ class CreateUsersTable extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addUniqueKey('email');
-        $this->forge->addForeignKey('account_id', 'accounts', 'id', 'cascade', 'cascade');
         $this->forge->createTable('users');
     }
 

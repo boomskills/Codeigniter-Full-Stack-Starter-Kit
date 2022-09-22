@@ -4,11 +4,12 @@ namespace Modules\Admin\Controllers;
 
 use App\Models\PostModel;
 use App\Utils\UnlinkFile;
+use App\Models\CategoryModel;
 use App\Events\Post\PostWasCreated;
 use App\Events\Post\PostWasDeleted;
 use App\Events\Post\PostWasUpdated;
-use App\Models\CategoryModel;
 use App\Repositories\PostRepository;
+use App\Events\Post\PostWasPublished;
 
 class PostController extends BaseAdminController
 {
@@ -96,7 +97,7 @@ class PostController extends BaseAdminController
             'title' => $title,
             'short_description' => $this->request->getVar('short_description'),
             'description' => $this->request->getVar('description'),
-            'account_id' => $this->user->info->account_id,
+            'user_id' => $this->user->info->id,
             'thumbnail' => $postImage,
             'status' => $status,
         ]);
@@ -221,5 +222,45 @@ class PostController extends BaseAdminController
         }
 
         return redirect()->back()->withInput()->with('error', $deleteOne['message']);
+    }
+
+    /**
+     * Publish post.
+     *
+     * @param null|mixed $postId
+     */
+    public function updatePostStatus($postId = null)
+    {
+        $post = $this->postModel->find($postId);
+
+        if (!$post) {
+            return $this->template->__admin_error(lang('Error.postNotFound'));
+        }
+
+        $message = lang('Success.success_60');
+
+        // unpublish if already published
+        if ($post->isPublished()) {
+            $publish = $post->unpublish();
+
+            if ($this->postModel->save($publish)) {
+                return redirect()->back()->withInput()->with('success', $message);
+            };
+        }
+
+        // publish if not published
+        if (!$post->isPublished()) {
+            $message = "Post has been unpublished";
+            $publish = $post->publish();
+            $publish->published_by = $this->user->info->id;
+
+            if ($this->postModel->save($publish)) {
+                // fire published event
+                (new PostWasPublished($post))->handle();
+                return redirect()->back()->withInput()->with('success', $message);
+            };
+        }
+
+        return redirect()->back()->withInput()->with('success', $this->postModel->errors());
     }
 }

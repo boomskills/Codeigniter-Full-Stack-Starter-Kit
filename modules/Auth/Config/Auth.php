@@ -16,7 +16,7 @@ class Auth extends BaseConfig
      *
      * @var string
      */
-    public $defaultUserRole = 'member';
+    public $defaultUserRole = 'user';
 
     /*
 	 | -------------------------------------------------------------------------
@@ -97,7 +97,7 @@ class Auth extends BaseConfig
      * @var string[]
      */
     public $validFields = [
-        'identity',
+        'username',
         'email',
     ];
 
@@ -316,8 +316,8 @@ class Auth extends BaseConfig
      */
     public $userActivators = [
         'Modules\Auth\Authentication\Activators\EmailActivator' => [
-            'fromEmail' => 'info@citystriders.com',
-            'fromName' => 'City Striders Club',
+            'fromEmail' => 'info@codeigniter-full-stack-starter-kit.com',
+            'fromName' => 'Codeigniter Full-Stack Starter Kit',
         ],
     ];
 
@@ -332,8 +332,8 @@ class Auth extends BaseConfig
      */
     public $userResetters = [
         'Modules\Auth\Authentication\Resetters\EmailResetter' => [
-            'fromEmail' => 'info@citystriders.com',
-            'fromName' => 'City Striders Club',
+            'fromEmail' => 'info@codeigniter-full-stack-starter-kit.com',
+            'fromName' => 'Codeigniter Full-Stack Starter Kit',
         ],
     ];
 

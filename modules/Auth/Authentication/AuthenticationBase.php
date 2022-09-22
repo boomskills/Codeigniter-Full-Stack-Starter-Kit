@@ -85,7 +85,7 @@ class AuthenticationBase
         // Always record a login attempt
         $ipAddress = service('request')->getIPAddress();
 
-        $this->recordLoginAttempt($auth->identity, $ipAddress, true, $auth->user_id);
+        $this->recordLoginAttempt($auth->username, $ipAddress, true, $auth->user_id);
 
         // Regenerate the session ID to help protect against session fixation
         if (ENVIRONMENT !== 'testing') {
@@ -198,11 +198,11 @@ class AuthenticationBase
      *
      * @return bool|int|string
      */
-    public function recordLoginAttempt(string $identity, string $ipAddress = null, bool $success, $userId = null)
+    public function recordLoginAttempt(string $username, string $ipAddress = null, bool $success, $userId = null)
     {
         return $this->loginModel->insert([
             'ip_address' => $ipAddress,
-            'identity' => $identity,
+            'username' => $username,
             'user_id' => $userId,
             'date' => date('Y-m-d H:i:s'),
             'success' => (int) $success,
@@ -216,7 +216,7 @@ class AuthenticationBase
      */
     public function updateOnlineTimestamp($authID = null)
     {
-        db_connect()->table('authentications')->where('user_id', $authID)->set(['online_timestamp' => time()])->update();
+        db_connect()->table('auths')->where('user_id', $authID)->set(['online_timestamp' => time()])->update();
     }
 
     /**

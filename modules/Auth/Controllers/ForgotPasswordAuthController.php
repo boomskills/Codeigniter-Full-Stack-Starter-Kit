@@ -32,8 +32,8 @@ class ForgotPasswordAuthController extends BaseAuthController
         }
 
         $rules = [
-            'identity' => [
-                'label' => lang('Auth.identity'),
+            'username' => [
+                'label' => lang('Auth.username'),
                 'rules' => 'required',
             ],
         ];
@@ -42,7 +42,7 @@ class ForgotPasswordAuthController extends BaseAuthController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $auth = (new AuthModel())->where('identity', $this->request->getVar('identity'))->first();
+        $auth = (new AuthModel())->where('username', $this->request->getVar('username'))->first();
 
         if (is_null($auth)) {
             return redirect()->back()->with('error', lang('Auth.forgotNoAccount'));

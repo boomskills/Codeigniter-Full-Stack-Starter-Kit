@@ -29,4 +29,12 @@ class DocumentModel extends BaseModel
     {
         return self::class;
     }
+
+    /**
+     * Return documentable files of a given the data.
+     */
+    public function documentable(int $documentableId = null, string $documentableType = '')
+    {
+        return $this->builder()->where(['documentable_id' => $documentableId, 'documentable_type' => $documentableType])->get()->getResult();
+    }
 }

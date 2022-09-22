@@ -3,7 +3,6 @@
 namespace Modules\Auth\Authentication\Activators;
 
 use App\Entities\User;
-use App\Libraries\Common;
 use Config\Email;
 use Modules\Auth\Entities\Auth;
 

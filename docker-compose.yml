@@ -1,31 +1,31 @@
 version: "3.8"
 services:
   proxy:
-      container_name: codeigniter-fullstack-starter-kit-proxy
+      container_name: ci-fullstack-starter-kit-proxy
       image: jwilder/nginx-proxy
       ports:
           - "10:80"
-          - "2526:2526"
+          - "527:527"
       volumes:
         - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  codeigniter-fullstack-starter-kit:
+  app:
+    image: boomskills/ci-fullstack-starter-kit
+    container_name: ci-fullstack-starter-kit
     build:
       args:
-        user: holoog
+        user: boomskills
         uid: 1000
       context: ./
       dockerfile: ./docker/php/Dockerfile
-    image: holoog/codeigniter-fullstack-starter-kit
-    container_name: codeigniter-fullstack-starter-kit
     restart: unless-stopped
     volumes:
       - "./:/var/www/html"
       - "./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
     environment:
-      - database.default.hostname=codeigniter-fullstack-starter-kit-db
-      - database.default.database=db-codeigniter-fullstack-starter-kit
-      - database.default.username=db-codeigniter-fullstack-starter-kit-user
+      - database.default.hostname=ci-fullstack-starter-kit-db
+      - database.default.database=db-ci-fullstack-starter-kit
+      - database.default.username=db-ci-fullstack-starter-kit-user
       - database.default.password=secret
       - database.default.DBDriver=MySQLi
     depends_on:
@@ -33,9 +33,10 @@ services:
     ports:
       - "2525:80"
     networks:
-      - codeigniter-fullstack-starter-kit
+      - ci-fullstack-starter-kit
 
   nginx:
+    container_name: ci-fullstack-starter-kit-nginx
     image: nginx:1.18-alpine
     restart: unless-stopped
     ports:
@@ -46,11 +47,11 @@ services:
     working_dir: /var/www/html
     depends_on:
       - database
-      - codeigniter-fullstack-starter-kit
+      - app
     networks:
-      - codeigniter-fullstack-starter-kit
+      - ci-fullstack-starter-kit
 
-  codeigniter-fullstack-starter-kit-phpmyadmin:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7
     restart: unless-stopped
     depends_on:
@@ -58,21 +59,21 @@ services:
     ports:
       - "2527:80"
     environment:
-      - PMA_HOST=codeigniter-fullstack-starter-kit-db
-      - PMA_PORT= 3306
+      - PMA_HOST=ci-fullstack-starter-kit-db
+      - PMA_PORT=3306
     volumes:
       - /sessions
-    container_name: codeigniter-fullstack-starter-kit-phpmyadmin
+    container_name: ci-fullstack-starter-kit-phpmyadmin
     networks:
-      - codeigniter-fullstack-starter-kit
+      - ci-fullstack-starter-kit
 
   database:
     image: mysql:5.7
-    container_name: codeigniter-fullstack-starter-kit-db
+    container_name: ci-fullstack-starter-kit-db
     restart: unless-stopped
     environment:
-      - MYSQL_DATABASE=db-codeigniter-fullstack-starter-kit
-      - MYSQL_USER=db-codeigniter-fullstack-starter-kit-user
+      - MYSQL_DATABASE=db-ci-fullstack-starter-kit
+      - MYSQL_USER=db-ci-fullstack-starter-kit-user
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
     ports:
@@ -80,8 +81,8 @@ services:
     volumes:
       - "./data/db/mysql:/var/lib/mysql"
     networks:
-      - codeigniter-fullstack-starter-kit
+      - ci-fullstack-starter-kit
 
 networks:
-  codeigniter-fullstack-starter-kit:
+  ci-fullstack-starter-kit:
     driver: bridge

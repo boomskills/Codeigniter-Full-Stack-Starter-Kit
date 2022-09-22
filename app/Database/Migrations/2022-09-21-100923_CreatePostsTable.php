@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'account_id' => [
+            'user_id' => [
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
                 'unsigned' => true,
@@ -52,16 +52,33 @@ class CreatePostsTable extends Migration
                 'null' => true,
             ],
             'status' => [
-                "type" => "TINYINT",
-                'constraint' => '1',
-                'default' => 0
+                'type' => 'ENUM',
+                'constraint' => ['draft', 'pending', 'published'],
+                'default' => 'draft',
             ],
+
+            'views' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'default' => '0',
+            ],
+
+            'published_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+
+            'meta' => [
+                'type' => 'JSON',
+                'null' => true,
+            ],
+
             'created_at timestamp default now()',
             'updated_at timestamp default now() on update now()',
             'deleted_at timestamp null',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('account_id', 'accounts', 'id', 'cascade', 'cascade');
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'cascade', 'cascade');
         $this->forge->addKey('slug');
         $this->forge->createTable('posts');
     }
