@@ -11,16 +11,16 @@ $routes->group('auth', ['namespace' => 'Modules\Auth\Controllers'], function ($a
     $auth->get('logout', 'LogoutApiController::logout');
 
     // Registration
-    $auth->get('register', 'RegisterAuthController::register', ['as' => 'register']);
-    $auth->post('register', 'RegisterAuthController::attemptRegister');
+    $auth->get('register-account', 'RegisterAuthController::register', ['as' => 'register']);
+    $auth->post('register-account', 'RegisterAuthController::attemptRegister');
 
     // Activation
     $auth->get('activate-account', 'ActivationAuthController::activateAccount', ['as' => 'activate-account']);
     $auth->get('resend-activate-account', 'ActivationAuthController::resendActivateAccount', ['as' => 'resend-activate-account']);
 
     // Forgot
-    $auth->get('forgot', 'ForgotPasswordAuthController::forgotPassword', ['as' => 'forgot']);
-    $auth->post('forgot', 'ForgotPasswordAuthController::attemptForgot');
+    $auth->get('forgot-password', 'ForgotPasswordAuthController::forgotPassword', ['as' => 'forgot']);
+    $auth->post('forgot-password', 'ForgotPasswordAuthController::attemptForgot');
 
     // Resets
     $auth->get('reset-password', 'ResetPasswordAuthController::resetPassword', ['as' => 'reset-password']);
