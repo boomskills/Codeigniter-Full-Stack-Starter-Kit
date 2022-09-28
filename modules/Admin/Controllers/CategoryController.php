@@ -111,7 +111,7 @@ class CategoryController extends BaseAdminController
             'description' => $this->request->getVar('description'),
         ];
 
-        $updateOne = $this->crud->updateOne($this->categoryModel, $payload, $id);
+        $updateOne = $this->factory->updateOne($this->categoryModel, $payload, $id);
 
         if ($updateOne['success']) {
             return redirect()->back()->withInput()->with('success', $updateOne['message']);
@@ -135,7 +135,7 @@ class CategoryController extends BaseAdminController
             return $this->template->__admin_error(lang('Error.error_212'));
         }
 
-        $deleteOne = $this->crud->deleteOne($this->categoryModel, $id);
+        $deleteOne = $this->factory->deleteOne($this->categoryModel, $id);
 
         if ($deleteOne['success']) {
             return redirect()->back()->withInput()->with('success', $deleteOne['message']);
